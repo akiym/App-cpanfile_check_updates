@@ -1,0 +1,7 @@
+#!perl
+use strict;
+use warnings;
+
+use App::ccu::CLI;
+
+exit(App::ccu::CLI->new->run(@ARGV));
