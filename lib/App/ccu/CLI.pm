@@ -26,14 +26,14 @@ sub run {
     );
     my $parsed = $p->getoptionsfromarray(
         \@argv,
-        'cpanfile=s'   => \$opt{cpanfile},
-        'snapshot=s'   => \$opt{snapshot},
-        'phase'        => \$opt{phase},
-        'relationship' => \$opt{relationship},
+        'cpanfile=s'     => \$opt{cpanfile},
+        'snapshot=s'     => \$opt{snapshot},
+        'phase=s'        => \$opt{phase},
+        'relationship=s' => \$opt{relationship},
         # TODO: implement interactive mode
-        'interactive'  => \$opt{interactive},
-        'version'      => sub { $exitcode = 0; version() },
-        'help'         => sub { $exitcode = 0; usage()   },
+        'interactive'    => \$opt{interactive},
+        'version'        => sub { $exitcode = 0; version() },
+        'help'           => sub { $exitcode = 0; usage()   },
     );
 
     if (!$parsed) {
