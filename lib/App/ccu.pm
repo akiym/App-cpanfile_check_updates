@@ -87,7 +87,11 @@ sub run {
 
         if ($release && $release->version ne $module->{version}) {
             $updated_modules{$module_name} = $release->version;
-            $self->module_details->show($module, $release);
+            $self->module_details->show($module, {
+                dist           => $release->dist,
+                version        => $release->version,
+                author_release => $release->cpanid . '/' . $release->distvname,
+            });
         }
     }
 

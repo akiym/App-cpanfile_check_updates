@@ -60,15 +60,4 @@ sub changes {
     return decode_json($res->{content})->{content};
 }
 
-sub diff_file_url {
-    my ($self, $source_author_release, $target_author_release) = @_;
-
-    my $metacpan_diff_uri = URI->new('https://metacpan.org/diff/file');
-    $metacpan_diff_uri->query_form(
-        source => $source_author_release,
-        target => $target_author_release,
-    );
-    return $metacpan_diff_uri->as_string;
-}
-
 1;

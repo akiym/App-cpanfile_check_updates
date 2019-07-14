@@ -16,17 +16,27 @@ use Class::Tiny {
 };
 
 sub show {
-    my ($self, $module, $release) = @_;
+    my ($self, $source, $target) = @_;
 
-    my $source_author_release = $module->{author_release} ||
-        $self->metacpan->author_release($module->{module}, $module->{version});
-    my $target_author_release = $release->cpanid . '/' . $release->distvname;
+    my $source_author_release = $source->{author_release} ||
+        $self->metacpan->author_release($source->{module}, $source->{version});
 
-    printf "## %s\n", $module->{module};
-    printf "[`%s` -> `%s`](%s)\n", $module->{version}, $release->version, $self->metacpan->diff_file_url($source_author_release, $target_author_release);
+    printf "## %s\n", $source->{module};
+    printf "[`%s` -> `%s`](%s)\n", $source->{version}, $target->{version}, $self->_diff_file_url($source_author_release, $target->{author_release});
 
-    $self->print_advisory($release->dist, $module->{version});
-    $self->print_changes($target_author_release, $module->{version}, $release->version);
+    $self->print_advisory($target->{dist}, $source->{version});
+    $self->print_changes($target->{author_release}, $source->{version}, $target->{version});
+}
+
+sub _diff_file_url {
+    my ($self, $source_author_release, $target_author_release) = @_;
+
+    my $metacpan_diff_uri = URI->new('https://metacpan.org/diff/file');
+    $metacpan_diff_uri->query_form(
+        source => $source_author_release,
+        target => $target_author_release,
+    );
+    return $metacpan_diff_uri->as_string;
 }
 
 sub print_advisory {
