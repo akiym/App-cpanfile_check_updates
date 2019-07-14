@@ -1,3 +1,4 @@
+[![Build Status](https://travis-ci.com/akiym/cpanfile-check-updates.svg?branch=master)](https://travis-ci.com/akiym/cpanfile-check-updates)
 # NAME
 
 App::ccu - Update newer versions of module from cpanfile and cpanfile.snapshot

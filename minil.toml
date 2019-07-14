@@ -1,5 +1,5 @@
 name = "App-ccu"
-# badges = ["travis-ci.com"]
+badges = ["travis-ci.com"]
 authority="cpan:AKIYM"
 
 module_maker="ModuleBuildTiny"
