@@ -8,11 +8,11 @@ use URI;
 
 use App::ccu::ChangesParser;
 use App::ccu::MetaCPAN;
+use App::ccu::Version;
 
 use Class::Tiny {
-    audit_db      => sub { CPAN::Audit::DB->db },
-    audit_version => sub { CPAN::Audit::Version->new },
-    metacpan      => sub { App::ccu::MetaCPAN->new },
+    audit_db => sub { CPAN::Audit::DB->db },
+    metacpan => sub { App::ccu::MetaCPAN->new },
 };
 
 sub show {
@@ -46,7 +46,7 @@ sub print_advisory {
         or return;
 
     my @affected_advisories =
-        grep { $self->audit_version->in_range($version, $_->{affected_versions}) }
+        grep { App::ccu::Version->in_range($version, $_->{affected_versions}) }
             @{$db->{advisories}};
 
     return unless @affected_advisories;
