@@ -56,7 +56,7 @@ sub usage {
 
 sub version {
     my $fh = $_[0] ? *STDERR : *STDOUT;
-    print $fh "App::ccu version $App::ccu::VERSION\n";
+    print $fh "cpanfile-check-updates version $App::ccu::VERSION\n";
     if (defined $App::ccu::GIT_DESCRIBE) {
         print $fh "This is a self-contained version, $App::ccu::GIT_DESCRIBE ($App::ccu::GIT_URL)\n";
     }
