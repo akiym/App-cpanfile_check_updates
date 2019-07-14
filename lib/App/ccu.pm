@@ -13,7 +13,6 @@ use Class::Tiny {
     snapshot       => 'cpanfile.snapshot',
     phase          => undef,
     relationship   => undef,
-    interactive    => undef,
     module_details => sub { App::ccu::ModuleDetails->new },
     pause_packages => sub { App::ccu::PAUSEPackages->new },
 };

@@ -14,7 +14,6 @@ subtest 'run for default options' => sub {
                     field snapshot     => 'cpanfile.snapshot';
                     field phase        => undef;
                     field relationship => undef;
-                    field interactive  => 0;
                     end;
                 };
                 is \@modules, [];
@@ -34,7 +33,6 @@ subtest 'run for specifying options' => sub {
                     field snapshot     => 'a/cpanfile.snapshot';
                     field phase        => 'develop';
                     field relationship => 'recommends';
-                    field interactive  => 1;
                     end;
                 };
                 is \@modules, ['A', 'B'];
@@ -46,7 +44,6 @@ subtest 'run for specifying options' => sub {
         '--snapshot'     => 'a/cpanfile.snapshot',
         '--phase'        => 'develop',
         '--relationship' => 'recommends',
-        '--interactive',
         'A',
         'B',
     ), 0;

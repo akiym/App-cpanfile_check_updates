@@ -18,7 +18,6 @@ sub run {
         snapshot     => 'cpanfile.snapshot',
         phase        => undef,
         relationship => undef,
-        interactive  => 0,
     );
     my $exitcode;
     my $p = Getopt::Long::Parser->new(
@@ -30,8 +29,6 @@ sub run {
         'snapshot=s'     => \$opt{snapshot},
         'phase=s'        => \$opt{phase},
         'relationship=s' => \$opt{relationship},
-        # TODO: implement interactive mode
-        'interactive'    => \$opt{interactive},
         'version'        => sub { $exitcode = 0; version() },
         'help'           => sub { $exitcode = 0; usage()   },
     );
