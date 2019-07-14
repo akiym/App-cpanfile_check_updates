@@ -55,6 +55,7 @@ DISTRIBUTIONS
             author_release => 'XSAWYERX/Carp-1.50',
             phase          => 'runtime',
             relationship   => 'requires',
+            version_range  => '1.50',
         },
         Config => {
             module         => 'Config',
@@ -63,6 +64,7 @@ DISTRIBUTIONS
             author_release => undef,
             phase          => 'runtime',
             relationship   => 'requires',
+            version_range  => '0',
         },
         Foo  => {
             module         => 'Foo',
@@ -71,6 +73,7 @@ DISTRIBUTIONS
             author_release => 'FOO/FooBar-0.01',
             phase          => 'runtime',
             relationship   => 'requires',
+            version_range  => '0',
         },
         Baz  => {
             module         => 'Baz',
@@ -79,6 +82,7 @@ DISTRIBUTIONS
             author_release => 'BAZ/Baz-0.01',
             phase          => 'develop',
             relationship   => 'recommends',
+            version_range  => '0',
         },
     };
 };

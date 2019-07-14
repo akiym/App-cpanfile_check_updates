@@ -74,6 +74,7 @@ subtest 'module details is shown' => sub {
                     author_release => 'FOO/A-0.01',
                     phase          => 'runtime',
                     relationship   => 'requires',
+                    version_range  => 0,
                 },
                 {
                     dist           => 'A',
@@ -94,6 +95,7 @@ subtest 'module details is shown' => sub {
                     author_release => 'FOO/B-0.01',
                     phase          => 'runtime',
                     relationship   => 'requires',
+                    version_range  => 0,
                 },
                 {
                     dist           => 'B',

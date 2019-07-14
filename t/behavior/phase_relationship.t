@@ -79,6 +79,7 @@ subtest 'module details is shown' => sub {
                     author_release => 'FOO/C-0.01',
                     phase          => 'develop',
                     relationship   => 'recommends',
+                    version_range  => 0,
                 },
                 {
                     dist           => 'C',

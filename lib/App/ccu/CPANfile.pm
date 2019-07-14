@@ -18,6 +18,8 @@ sub load {
     for my $phase (keys %$prereqs) {
         for my $relationship (keys %{$prereqs->{$phase}}) {
             for my $module (keys %{$prereqs->{$phase}{$relationship}}) {
+                my $version_range = $prereqs->{$phase}{$relationship}{$module};
+
                 next if $module eq 'perl';
 
                 my $dist = $snapshot->find_or_core($module) or next;
@@ -29,6 +31,7 @@ sub load {
                         author_release => undef,
                         phase          => $phase,
                         relationship   => $relationship,
+                        version_range  => $version_range,
                     };
                 } else {
                     my $di = CPAN::DistnameInfo->new($dist->pathname);
@@ -39,6 +42,7 @@ sub load {
                         author_release => $di->cpanid . '/' . $di->distvname,
                         phase          => $phase,
                         relationship   => $relationship,
+                        version_range  => $version_range,
                     };
                 }
             }
