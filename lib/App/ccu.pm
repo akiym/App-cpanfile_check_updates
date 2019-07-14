@@ -22,7 +22,7 @@ our $VERSION = "0.01";
 our ($GIT_DESCRIBE, $GIT_URL);
 
 sub run {
-    my $self = shift;
+    my ($self, @modules) = @_;
 
     # TODO: check outdated modules in cpanfile.snapshot
 
@@ -37,6 +37,7 @@ sub run {
 
         next if $self->phase && $self->phase ne $module->{phase};
         next if $self->relationship && $self->relationship ne $module->{relationship};
+        next if @modules && not grep { $_ eq $module_name } @modules;
 
         my $release = $self->pause_packages->find_release($module->{dist}, $module_name);
         next unless $release;

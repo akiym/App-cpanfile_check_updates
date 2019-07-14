@@ -8,7 +8,7 @@ subtest 'run for default options' => sub {
     my $mock = mock 'App::ccu' => (
         override => [
             run => sub {
-                my $self = shift;
+                my ($self, @modules) = @_;
                 is $self, object {
                     field cpanfile     => 'cpanfile';
                     field snapshot     => 'cpanfile.snapshot';
@@ -17,6 +17,7 @@ subtest 'run for default options' => sub {
                     field interactive  => 0;
                     end;
                 };
+                is \@modules, [];
             },
         ],
     );
@@ -27,7 +28,7 @@ subtest 'run for specifying options' => sub {
     my $mock = mock 'App::ccu' => (
         override => [
             run => sub {
-                my $self = shift;
+                my ($self, @modules) = @_;
                 is $self, object {
                     field cpanfile     => 'a/cpanfile';
                     field snapshot     => 'a/cpanfile.snapshot';
@@ -36,6 +37,7 @@ subtest 'run for specifying options' => sub {
                     field interactive  => 1;
                     end;
                 };
+                is \@modules, ['A', 'B'];
             },
         ],
     );
@@ -45,6 +47,8 @@ subtest 'run for specifying options' => sub {
         '--phase'        => 'develop',
         '--relationship' => 'recommends',
         '--interactive',
+        'A',
+        'B',
     ), 0;
 };
 

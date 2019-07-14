@@ -44,14 +44,14 @@ sub run {
     return $exitcode if defined $exitcode;
 
     my $app = App::ccu->new(%opt);
-    $app->run;
+    $app->run(@argv);
 
     return 0;
 }
 
 sub usage {
     my $fh = $_[0] ? *STDERR : *STDOUT;
-    print $fh "    cpanfile-check-updates [--cpanfile file] [--snapshot file] [--interactive] [--version] [--help]\n";
+    print $fh "    cpanfile-check-updates [--cpanfile file] [--snapshot file] [--interactive] [--version] [--help] [modules...]\n";
 }
 
 sub version {
