@@ -11,7 +11,7 @@ requires 'Module::CPANfile';
 requires 'URI';
 
 on 'test' => sub {
-    requires 'Test2::V0';
+    requires 'Test2::V0', '0.000121';
     requires 'Capture::Tiny';
 };
 
