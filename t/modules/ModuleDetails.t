@@ -166,16 +166,16 @@ Revision history for Foo
     };
 };
 
-subtest 'count_changes_line' => sub {
+subtest 'count_entries' => sub {
     my $module_details = App::ccu::ModuleDetails->new;
-    is $module_details->count_changes_line(
+    is $module_details->count_entries(
         { entries => [{ text => 'a' }] },
     ), 2;
-    is $module_details->count_changes_line(
+    is $module_details->count_entries(
         { entries => [{ text => 'a' }] },
         { entries => [{ text => 'a' }] },
     ), 4;
-    is $module_details->count_changes_line(
+    is $module_details->count_entries(
         { entries => [{ text => 'a', entries => [{ text => 'a' }] }] },
     ), 3;
 };

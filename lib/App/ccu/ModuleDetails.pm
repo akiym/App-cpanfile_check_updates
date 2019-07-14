@@ -93,7 +93,7 @@ sub print_changes {
 
     printf "### Changes\n";
 
-    my $collapse = $self->count_changes_line(@changelogs) > 10;
+    my $collapse = $self->count_entries(@changelogs) > 10;
 
     print "<details>\n" if $collapse;
 
@@ -121,12 +121,12 @@ sub _print_entry {
     }
 }
 
-sub count_changes_line {
+sub count_entries {
     my ($self, @entries) = @_;
 
     my $count = 0;
     for my $entry (@entries) {
-        $count += 1 + $self->count_changes_line(@{$entry->{entries}});
+        $count += 1 + $self->count_entries(@{$entry->{entries}});
     }
     return $count;
 }
