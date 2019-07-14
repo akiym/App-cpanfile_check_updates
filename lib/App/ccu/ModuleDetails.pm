@@ -82,12 +82,24 @@ sub print_changes {
     return unless @changelogs;
 
     printf "### Changes\n";
+
+    my $collapse = $self->count_changes_line(@changelogs) > 10;
+
+    print "<details>\n" if $collapse;
+
+    my $first = 1;
     for my $changelog (@changelogs) {
+        print "<summary>\n" if $collapse && $first;
         printf "#### %s: %s\n", $changelog->{version}, $changelog->{date} || '';
         for my $entry (@{$changelog->{entries}}) {
             $self->_print_entry($entry, 0);
         }
+        print "</summary>\n" if $collapse && $first;
+        $first = 0;
     }
+
+    print "</details>\n" if $collapse;
+
 }
 
 sub _print_entry {
@@ -97,6 +109,16 @@ sub _print_entry {
     for my $e (@{$entry->{entries}}) {
         $self->_print_entry($e, $level + 1);
     }
+}
+
+sub count_changes_line {
+    my ($self, @entries) = @_;
+
+    my $count = 0;
+    for my $entry (@entries) {
+        $count += 1 + $self->count_changes_line(@{$entry->{entries}});
+    }
+    return $count;
 }
 
 1;
