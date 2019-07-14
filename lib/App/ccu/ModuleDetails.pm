@@ -3,7 +3,6 @@ use strict;
 use warnings;
 
 use CPAN::Audit::DB;
-use CPAN::Audit::Version;
 use URI;
 
 use App::ccu::ChangesParser;
