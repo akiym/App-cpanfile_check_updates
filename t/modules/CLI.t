@@ -53,13 +53,13 @@ subtest 'usage' => sub {
     my ($stdout, undef) = capture {
         is +App::ccu::CLI->new->run('--help'), 0;
     };
-    like $stdout, qr/cpanfile-check-updates/;
+    like $stdout, qr/usage: cpanfile-check-updates/;
 
     subtest 'invalid option' => sub {
         my (undef, $stderr) = capture {
             is +App::ccu::CLI->new->run('--invalid_option'), 1;
         };
-        like $stderr, qr/cpanfile-check-updates/;
+        like $stderr, qr/usage: cpanfile-check-updates/;
     };
 };
 

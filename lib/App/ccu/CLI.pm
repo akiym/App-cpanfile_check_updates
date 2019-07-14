@@ -48,7 +48,25 @@ sub run {
 
 sub usage {
     my $fh = $_[0] ? *STDERR : *STDOUT;
-    print $fh "    cpanfile-check-updates [--cpanfile file] [--snapshot file] [--interactive] [--version] [--help] [modules...]\n";
+    print $fh <<'...';
+usage: cpanfile-check-updates [--cpanfile FILE] [--snapshot FILE]
+                              [--phase PHASE] [--relationship RELATIONSHIP] [--version] [--help]
+                              [<modules>]
+
+Options
+
+    --cpanfile FILE                         (default: cpanfile)
+    --snapshot FILE                         (default: cpanfile.snapshot)
+    --phase PHASE                           Target modules in the phase from cpanfile
+    configure|build|test|runtime|develop
+    --relationship RELATIONSHIP             Target modules in the relationship from cpanfile
+    requires|recommends|suggests|conflicts
+
+    --version                               Show version
+    --help                                  Show help
+
+    <modules>                               Target modules
+...
 }
 
 sub version {
