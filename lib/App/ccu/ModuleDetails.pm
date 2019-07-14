@@ -91,18 +91,28 @@ sub print_changes {
 
     return unless @changelogs;
 
-    printf "### Changes\n";
+    print "### Changes\n";
 
     my $collapse = $self->count_entries(@changelogs) > 10;
 
     print "<details>\n" if $collapse;
 
     my $first = 1;
-    for my $changelog (@changelogs) {
+    for my $i (0..$#changelogs) {
+        my $changelog = $changelogs[$i];
+
         print "<summary>\n" if $collapse && $first;
         printf "#### %s: %s\n", $changelog->{version}, $changelog->{date} || '';
-        for my $entry (@{$changelog->{entries}}) {
-            $self->_print_entry($entry, 0);
+        my @entries = $self->expand_entries(@{$changelog->{entries}});
+        for my $j (0..$#entries) {
+            my $entry = $entries[$j];
+
+            printf "%s- %s\n", '  ' x $entry->[0], $entry->[1];
+            # if changes cannot be parse correctly, omit the last too long entry
+            if ($i == $#changelogs && $j + 1 >= 10) {
+                printf "...\n";
+                last;
+            }
         }
         print "</summary>\n" if $collapse && $first;
         $first = 0;
@@ -112,13 +122,15 @@ sub print_changes {
 
 }
 
-sub _print_entry {
-    my ($self, $entry, $level) = @_;
+sub expand_entries {
+    my ($self, @entries) = @_;
 
-    printf "%s- %s\n", '  ' x $level, $entry->{text};
-    for my $e (@{$entry->{entries}}) {
-        $self->_print_entry($e, $level + 1);
+    my @expanded;
+    for my $entry (@entries) {
+        push @expanded, [0, $entry->{text}];
+        push @expanded, map { [$_->[0] + 1, $_->[1]] } $self->expand_entries(@{$entry->{entries}});
     }
+    return @expanded;
 }
 
 sub count_entries {

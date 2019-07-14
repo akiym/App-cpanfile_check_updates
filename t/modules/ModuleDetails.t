@@ -106,17 +106,7 @@ Revision history for Foo
     subtest 'collapse for long changes' => sub {
         my $metacpan = mock {} => (
             add => [
-                release => sub {
-                    +{
-                        "resources" => {
-                            "repository" => {
-                                "type" => "git",
-                                "url"  => "https://github.com/example/Foo.git",
-                                "web"  => "https://github.com/example/Foo"
-                            }
-                        },
-                    };
-                },
+                release => sub { +{} },
                 changes => sub {
                     <<'...';
 Revision history for Foo
@@ -163,6 +153,64 @@ Revision history for Foo
 - 11
 </details>
 ...
+    };
+
+    subtest 'omit too long changes' => sub {
+        my $metacpan = mock {} => (
+            add => [
+                release => sub { +{} },
+                changes => sub {
+                    <<'...';
+Revision history for Foo
+
+0.10 - 2019-02-01
+  - a
+
+0.09 - 2019-02-01
+  - 1
+  - 2
+  - 3
+  - 4
+  - 5
+  - 6
+  - 7
+  - 8
+  - 9
+  - 10
+  - 11
+
+0.01 - 2019-01-01
+  - a
+...
+                },
+            ],
+        );
+        my $module_details = App::ccu::ModuleDetails->new(metacpan => $metacpan);
+
+        my $stdout = capture_stdout {
+            $module_details->print_changes('FOO/Foo-0.10', '0.01', '0.10');
+        };
+        is $stdout, <<'EOS';
+### Changes
+<details>
+<summary>
+#### 0.10: 2019-02-01
+- a
+</summary>
+#### 0.09: 2019-02-01
+- 1
+- 2
+- 3
+- 4
+- 5
+- 6
+- 7
+- 8
+- 9
+- 10
+...
+</details>
+EOS
     };
 };
 
