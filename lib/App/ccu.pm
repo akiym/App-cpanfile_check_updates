@@ -40,6 +40,7 @@ sub run {
 
         my $release = $self->pause_packages->find_release($module->{dist}, $module_name);
         next unless $release;
+        next unless App::ccu::Version->in_range($release->version, $module->{version_range});
         next if $release->dist eq 'perl';
 
         if ($release && $release->version ne $module->{version}) {
