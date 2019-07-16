@@ -100,7 +100,7 @@ sub print_changes {
     for my $i (0..$#changelogs) {
         my $changelog = $changelogs[$i];
 
-        print "<summary>\n" if $collapse && $first;
+        print "<summary>\n\n" if $collapse && $first;
         printf "#### %s: %s\n", $changelog->{version}, $changelog->{date} || '';
         my @entries = $self->expand_entries(@{$changelog->{entries}});
         for my $j (0..$#entries) {
@@ -113,11 +113,11 @@ sub print_changes {
                 last;
             }
         }
-        print "</summary>\n" if $collapse && $first;
+        print "</summary>\n\n" if $collapse && $first;
         $first = 0;
     }
 
-    print "</details>\n" if $collapse;
+    print "</details>\n\n" if $collapse;
 
 }
 

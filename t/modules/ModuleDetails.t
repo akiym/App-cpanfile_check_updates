@@ -139,9 +139,11 @@ Revision history for Foo
 ### Changes
 <details>
 <summary>
+
 #### 0.10: 2019-02-01
 - 2
 </summary>
+
 #### 0.09: 2019-02-01
 - 4
 - 5
@@ -152,6 +154,7 @@ Revision history for Foo
 - 10
 - 11
 </details>
+
 ...
     };
 
@@ -194,9 +197,11 @@ Revision history for Foo
 ### Changes
 <details>
 <summary>
+
 #### 0.10: 2019-02-01
 - a
 </summary>
+
 #### 0.09: 2019-02-01
 - 1
 - 2
@@ -210,6 +215,7 @@ Revision history for Foo
 - 10
 ...
 </details>
+
 EOS
     };
 };
