@@ -2,7 +2,7 @@ package App::ccu;
 use strict;
 use warnings;
 
-use App::CpanfileSlipstop::Writer;
+use Module::CPANfile::Writer;
 
 use App::ccu::CPANfile;
 use App::ccu::ModuleDetails;
@@ -29,8 +29,8 @@ sub run {
         $self->cpanfile,
         $self->snapshot,
     );
+    my $writer = Module::CPANfile::Writer->new($self->cpanfile);
 
-    my %updated_modules;
     for my $module_name (sort keys %$modules) {
         my $module = $modules->{$module_name};
 
@@ -44,24 +44,16 @@ sub run {
         next if $release->dist eq 'perl';
 
         if ($release && $release->version ne $module->{version}) {
-            $updated_modules{$module_name} = $release->version;
             $self->module_details->show($module, {
                 dist           => $release->dist,
                 version        => $release->version,
                 author_release => $release->cpanid . '/' . $release->distvname,
             });
+            $writer->add_prereq($module_name, $release->version, relationship => $self->relationship);
         }
     }
 
-    if (%updated_modules) {
-        my $writer = App::CpanfileSlipstop::Writer->new(
-            cpanfile_path => $self->cpanfile,
-        );
-        $writer->set_versions(sub {
-            my $module = shift;
-            return $updated_modules{$module};
-        }, sub {});
-    }
+    $writer->save($self->cpanfile);
 }
 
 1;
